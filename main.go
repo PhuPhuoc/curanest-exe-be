@@ -7,7 +7,7 @@ import (
 	"github.com/PhuPhuoc/curanest_exe_be/db/mysql"
 )
 
-//	@title		Curanest API for EXE
+//	@title		Curanest API for EXE201
 //	@version	1.0
 
 func main() {

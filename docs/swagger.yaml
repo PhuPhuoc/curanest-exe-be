@@ -1,6 +1,6 @@
 info:
   contact: {}
-  title: Curanest API for EXE
+  title: Curanest API for EXE201
   version: "1.0"
 paths:
   /users/hello:
