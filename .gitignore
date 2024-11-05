@@ -1,0 +1,6 @@
+.env
+setup_script.txt
+migrate_script.txt
+docker-compose.yaml
+curanest_exe_be.exe
+dummy.sql
