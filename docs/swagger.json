@@ -6,9 +6,9 @@
         "version": "1.0"
     },
     "paths": {
-        "/users/hello": {
-            "get": {
-                "description": "hello",
+        "/users/authentication": {
+            "post": {
+                "description": "User login data",
                 "consumes": [
                     "application/json"
                 ],
@@ -18,14 +18,99 @@
                 "tags": [
                     "users"
                 ],
-                "summary": "hello",
-                "responses": {
-                    "200": {
-                        "description": "say hi",
+                "summary": "User login data",
+                "parameters": [
+                    {
+                        "description": "User log in info",
+                        "name": "user",
+                        "in": "body",
+                        "required": true,
                         "schema": {
-                            "type": "string"
+                            "$ref": "#/definitions/usermodel.LoginForm"
                         }
                     }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "user data",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request error",
+                        "schema": {}
+                    }
+                }
+            }
+        },
+        "/users/sign-up": {
+            "post": {
+                "description": "register new user's account",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "users"
+                ],
+                "summary": "register new user's account",
+                "parameters": [
+                    {
+                        "description": "User register data",
+                        "name": "register_form",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/usermodel.RegisterForm"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "message success",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request error",
+                        "schema": {}
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "usermodel.LoginForm": {
+            "type": "object",
+            "properties": {
+                "email": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                }
+            }
+        },
+        "usermodel.RegisterForm": {
+            "type": "object",
+            "properties": {
+                "confirm_password": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
                 }
             }
         }

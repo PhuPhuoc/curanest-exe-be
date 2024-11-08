@@ -1,21 +1,77 @@
+definitions:
+  usermodel.LoginForm:
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+    type: object
+  usermodel.RegisterForm:
+    properties:
+      confirm_password:
+        type: string
+      email:
+        type: string
+      name:
+        type: string
+      password:
+        type: string
+    type: object
 info:
   contact: {}
   title: Curanest API for EXE201
   version: "1.0"
 paths:
-  /users/hello:
-    get:
+  /users/authentication:
+    post:
       consumes:
       - application/json
-      description: hello
+      description: User login data
+      parameters:
+      - description: User log in info
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/usermodel.LoginForm'
       produces:
       - application/json
       responses:
         "200":
-          description: say hi
+          description: user data
           schema:
-            type: string
-      summary: hello
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad request error
+          schema: {}
+      summary: User login data
+      tags:
+      - users
+  /users/sign-up:
+    post:
+      consumes:
+      - application/json
+      description: register new user's account
+      parameters:
+      - description: User register data
+        in: body
+        name: register_form
+        required: true
+        schema:
+          $ref: '#/definitions/usermodel.RegisterForm'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: message success
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad request error
+          schema: {}
+      summary: register new user's account
       tags:
       - users
 swagger: "2.0"
