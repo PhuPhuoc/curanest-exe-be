@@ -6,9 +6,9 @@ CREATE TABLE IF NOT EXISTS `patients` (
     `full_name` VARCHAR(255),
     `old` TINYINT,
     `dob` VARCHAR(20),
-    `citizen_id_num` VARCHAR(30) NOT NULL,
+    `citizen_id` VARCHAR(30) NOT NULL,
     `address` TEXT,
-    UNIQUE(`citizen_id_num`)
+    UNIQUE(`citizen_id`)
 );
 
 CREATE TABLE IF NOT EXISTS `customer_patient` (

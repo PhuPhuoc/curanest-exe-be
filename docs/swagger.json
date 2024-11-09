@@ -6,9 +6,113 @@
         "version": "1.0"
     },
     "paths": {
+        "/nurses": {
+            "post": {
+                "description": "create new nurse",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "nurses"
+                ],
+                "summary": "create new nurse",
+                "parameters": [
+                    {
+                        "description": "Nurse creation data",
+                        "name": "creation_form",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/nursemodel.NurseCreationModel"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "message success",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request error",
+                        "schema": {}
+                    }
+                }
+            }
+        },
+        "/techniques": {
+            "get": {
+                "description": "get techniques",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "techniques"
+                ],
+                "summary": "get techniques",
+                "responses": {
+                    "200": {
+                        "description": "data",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request error",
+                        "schema": {}
+                    }
+                }
+            },
+            "post": {
+                "description": "create new technique",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "techniques"
+                ],
+                "summary": "create new technique",
+                "parameters": [
+                    {
+                        "description": "new technique information",
+                        "name": "technique_form",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/techniquemodel.TechniqueCreationModel"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "message success",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request error",
+                        "schema": {}
+                    }
+                }
+            }
+        },
         "/users/authentication": {
             "post": {
-                "description": "User login data",
+                "description": "User login sign in",
                 "consumes": [
                     "application/json"
                 ],
@@ -18,11 +122,11 @@
                 "tags": [
                     "users"
                 ],
-                "summary": "User login data",
+                "summary": "User login sign in",
                 "parameters": [
                     {
                         "description": "User log in info",
-                        "name": "user",
+                        "name": "user-login-data",
                         "in": "body",
                         "required": true,
                         "schema": {
@@ -83,9 +187,148 @@
                     }
                 }
             }
+        },
+        "/users/{user_id}/create-customer-profile": {
+            "post": {
+                "description": "create new customer",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "customer"
+                ],
+                "summary": "create new customer",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "User ID",
+                        "name": "user_id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Customer register data",
+                        "name": "info",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/customermodel.CustomerModel"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "message success",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request error",
+                        "schema": {}
+                    }
+                }
+            }
         }
     },
     "definitions": {
+        "customermodel.CustomerModel": {
+            "type": "object",
+            "properties": {
+                "address": {
+                    "type": "string"
+                },
+                "citizen_id": {
+                    "type": "string"
+                },
+                "city": {
+                    "type": "string"
+                },
+                "district": {
+                    "type": "string"
+                },
+                "dob": {
+                    "type": "string"
+                },
+                "full_name": {
+                    "type": "string"
+                },
+                "phone_number": {
+                    "type": "string"
+                },
+                "ward": {
+                    "type": "string"
+                }
+            }
+        },
+        "nursemodel.NurseCreationModel": {
+            "type": "object",
+            "properties": {
+                "avatar": {
+                    "type": "string"
+                },
+                "certificate": {
+                    "type": "string"
+                },
+                "citizen_id": {
+                    "type": "string"
+                },
+                "current_workplace": {
+                    "type": "string"
+                },
+                "education_level": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "expertise": {
+                    "type": "string"
+                },
+                "full_name": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                },
+                "phone_number": {
+                    "type": "string"
+                },
+                "slogan": {
+                    "type": "string"
+                },
+                "techniques": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "work_experience": {
+                    "type": "string"
+                }
+            }
+        },
+        "techniquemodel.TechniqueCreationModel": {
+            "type": "object",
+            "properties": {
+                "estimated_time": {
+                    "type": "string"
+                },
+                "fee": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                }
+            }
+        },
         "usermodel.LoginForm": {
             "type": "object",
             "properties": {

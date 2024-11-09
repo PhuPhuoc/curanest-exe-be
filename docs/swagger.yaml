@@ -1,4 +1,65 @@
 definitions:
+  customermodel.CustomerModel:
+    properties:
+      address:
+        type: string
+      citizen_id:
+        type: string
+      city:
+        type: string
+      district:
+        type: string
+      dob:
+        type: string
+      full_name:
+        type: string
+      phone_number:
+        type: string
+      ward:
+        type: string
+    type: object
+  nursemodel.NurseCreationModel:
+    properties:
+      avatar:
+        type: string
+      certificate:
+        type: string
+      citizen_id:
+        type: string
+      current_workplace:
+        type: string
+      education_level:
+        type: string
+      email:
+        type: string
+      expertise:
+        type: string
+      full_name:
+        type: string
+      name:
+        type: string
+      password:
+        type: string
+      phone_number:
+        type: string
+      slogan:
+        type: string
+      techniques:
+        items:
+          type: string
+        type: array
+      work_experience:
+        type: string
+    type: object
+  techniquemodel.TechniqueCreationModel:
+    properties:
+      estimated_time:
+        type: string
+      fee:
+        type: integer
+      name:
+        type: string
+    type: object
   usermodel.LoginForm:
     properties:
       email:
@@ -22,15 +83,116 @@ info:
   title: Curanest API for EXE201
   version: "1.0"
 paths:
+  /nurses:
+    post:
+      consumes:
+      - application/json
+      description: create new nurse
+      parameters:
+      - description: Nurse creation data
+        in: body
+        name: creation_form
+        required: true
+        schema:
+          $ref: '#/definitions/nursemodel.NurseCreationModel'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: message success
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad request error
+          schema: {}
+      summary: create new nurse
+      tags:
+      - nurses
+  /techniques:
+    get:
+      consumes:
+      - application/json
+      description: get techniques
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: data
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad request error
+          schema: {}
+      summary: get techniques
+      tags:
+      - techniques
+    post:
+      consumes:
+      - application/json
+      description: create new technique
+      parameters:
+      - description: new technique information
+        in: body
+        name: technique_form
+        required: true
+        schema:
+          $ref: '#/definitions/techniquemodel.TechniqueCreationModel'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: message success
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad request error
+          schema: {}
+      summary: create new technique
+      tags:
+      - techniques
+  /users/{user_id}/create-customer-profile:
+    post:
+      consumes:
+      - application/json
+      description: create new customer
+      parameters:
+      - description: User ID
+        in: path
+        name: user_id
+        required: true
+        type: string
+      - description: Customer register data
+        in: body
+        name: info
+        required: true
+        schema:
+          $ref: '#/definitions/customermodel.CustomerModel'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: message success
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad request error
+          schema: {}
+      summary: create new customer
+      tags:
+      - customer
   /users/authentication:
     post:
       consumes:
       - application/json
-      description: User login data
+      description: User login sign in
       parameters:
       - description: User log in info
         in: body
-        name: user
+        name: user-login-data
         required: true
         schema:
           $ref: '#/definitions/usermodel.LoginForm'
@@ -45,7 +207,7 @@ paths:
         "400":
           description: Bad request error
           schema: {}
-      summary: User login data
+      summary: User login sign in
       tags:
       - users
   /users/sign-up:

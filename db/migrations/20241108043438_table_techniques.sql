@@ -3,7 +3,7 @@
 CREATE TABLE IF NOT EXISTS `techniques` (
     `id` VARCHAR(100) PRIMARY KEY,
     `name` VARCHAR(255),
-    `esttimated_time` TIME,
+    `estimated_time` TIME,
     `fee` INT
 );
 

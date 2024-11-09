@@ -10,16 +10,16 @@ import (
 	"github.com/jmoiron/sqlx"
 )
 
-// @BasePath		/api/v1
-// @Summary		User login data
-// @Description	User login data
-// @Tags			users
-// @Accept			json
-// @Produce		json
-// @Param			user	body		usermodel.LoginForm		true	"User log in info"
-// @Success		200		{object}	map[string]interface{}	"user data"
-// @Failure		400		{object}	error					"Bad request error"
-// @Router			/users/authentication [post]
+//	@BasePath		/api/v1
+//	@Summary		User login sign in
+//	@Description	User login sign in
+//	@Tags			users
+//	@Accept			json
+//	@Produce		json
+//	@Param			user-login-data	body		usermodel.LoginForm		true	"User log in info"
+//	@Success		200				{object}	map[string]interface{}	"user data"
+//	@Failure		400				{object}	error					"Bad request error"
+//	@Router			/users/authentication [post]
 func authenticationHandler(db *sqlx.DB) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		var req usermodel.LoginForm

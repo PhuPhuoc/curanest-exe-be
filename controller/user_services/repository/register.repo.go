@@ -29,7 +29,7 @@ func (store *userStore) Register(data *usermodel.RegisterForm) error {
 		Email:     data.Email,
 		Password:  data.Password,
 		Name:      data.Name,
-		Avatar:    "https://cdn.dribbble.com/users/1925112/screenshots/14112244/media/77ec114c2498be5e3d3b04a1b3bd44e7.png",
+		Avatar:    "https://cdn.dribbble.com/userupload/13007877/file/original-b46e2284f5d9eabaa14986f1f80d1a62.png?resize=752x",
 		Role:      "user",
 		CreatedAt: utils.GetCurrentDateTime(),
 	}

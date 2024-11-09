@@ -6,7 +6,7 @@ CREATE TABLE IF NOT EXISTS `users` (
     `password` VARCHAR(30) NOT NULL,
     `name` VARCHAR(255),
     `avatar` VARCHAR(255),
-    `role` ENUM('admin', 'user', 'nurse'),
+    `role` ENUM('admin', 'user', 'customer', 'nurse'),
     `created_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
     `deleted_at` DATETIME,
     UNIQUE(`email`)

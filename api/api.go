@@ -4,6 +4,8 @@ import (
 	"fmt"
 
 	customerhandler "github.com/PhuPhuoc/curanest_exe_be/controller/customer_services/handler"
+	nursehandler "github.com/PhuPhuoc/curanest_exe_be/controller/nurse_services/handler"
+	techniquehandler "github.com/PhuPhuoc/curanest_exe_be/controller/technique_services/handler"
 	userhandler "github.com/PhuPhuoc/curanest_exe_be/controller/user_services/handler"
 	docs "github.com/PhuPhuoc/curanest_exe_be/docs"
 	"github.com/gin-contrib/cors"
@@ -50,4 +52,6 @@ func (sv *server) runLog() {
 func (sv *server) registerRoutes(v1 *gin.RouterGroup) {
 	userhandler.RegisterUserRoutes(v1, sv.db)
 	customerhandler.RegisterCustomerRoutes(v1, sv.db)
+	techniquehandler.RegisterTechniqueRoutes(v1, sv.db)
+	nursehandler.RegisterNurseRoutes(v1, sv.db)
 }

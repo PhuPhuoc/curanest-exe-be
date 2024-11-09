@@ -6,6 +6,8 @@ import (
 )
 
 func RegisterCustomerRoutes(rg *gin.RouterGroup, db *sqlx.DB) {
+	rg.POST("/users/:user_id/create-customer-profile", createCustomerHandler(db))
+
 	// eg := rg.Group("/customers")
 	// {
 
