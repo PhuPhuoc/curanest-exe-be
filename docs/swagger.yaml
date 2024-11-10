@@ -83,6 +83,31 @@ info:
   title: Curanest API for EXE201
   version: "1.0"
 paths:
+  /customers/{customer_id}:
+    get:
+      consumes:
+      - application/json
+      description: get customer information
+      parameters:
+      - description: Customer ID
+        in: path
+        name: customer_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: message success
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad request error
+          schema: {}
+      summary: get customer information
+      tags:
+      - customers
   /nurses:
     get:
       consumes:
@@ -233,7 +258,7 @@ paths:
           schema: {}
       summary: create new customer
       tags:
-      - customer
+      - customers
   /users/authentication:
     post:
       consumes:

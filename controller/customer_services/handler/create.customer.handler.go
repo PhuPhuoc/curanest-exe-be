@@ -13,7 +13,7 @@ import (
 // @BasePath		/api/v1
 // @Summary		create new customer
 // @Description	create new customer
-// @Tags			customer
+// @Tags			customers
 // @Accept			json
 // @Produce		json
 // @Param			user_id					path		string					true						"User ID"
