@@ -80,6 +80,53 @@ const docTemplate = `{
                 }
             }
         },
+        "/nurses/{nurse_id}": {
+            "get": {
+                "description": "get list nurses (card)",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "nurses"
+                ],
+                "summary": "get list nurses (card)",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Nurse ID",
+                        "name": "nurse_id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "enum": [
+                            "user",
+                            "admin"
+                        ],
+                        "type": "string",
+                        "description": "Role",
+                        "name": "role",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "data",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request error",
+                        "schema": {}
+                    }
+                }
+            }
+        },
         "/techniques": {
             "get": {
                 "description": "get techniques",

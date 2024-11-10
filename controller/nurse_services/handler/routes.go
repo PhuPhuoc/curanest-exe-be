@@ -9,6 +9,7 @@ func RegisterNurseRoutes(rg *gin.RouterGroup, db *sqlx.DB) {
 	eg := rg.Group("/nurses")
 	{
 		eg.GET("", getNursesHandler(db))
+		eg.GET("/:nurse_id", getDetailNurseHandler(db))
 		eg.POST("", createNewNurseHandler(db))
 	}
 }

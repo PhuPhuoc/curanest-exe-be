@@ -127,6 +127,38 @@ paths:
       summary: create new nurse
       tags:
       - nurses
+  /nurses/{nurse_id}:
+    get:
+      consumes:
+      - application/json
+      description: get list nurses (card)
+      parameters:
+      - description: Nurse ID
+        in: path
+        name: nurse_id
+        required: true
+        type: string
+      - description: Role
+        enum:
+        - user
+        - admin
+        in: query
+        name: role
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: data
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad request error
+          schema: {}
+      summary: get list nurses (card)
+      tags:
+      - nurses
   /techniques:
     get:
       consumes:
