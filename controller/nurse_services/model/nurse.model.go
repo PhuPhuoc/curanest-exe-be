@@ -16,13 +16,13 @@ type NurseModel struct {
 type DetailNurseUserView struct {
 	AccountNurseUserView
 	NurseDetailUser
-	Techniques []TechniqueModel
+	Techniques []TechniqueModel `json:"techniques"`
 }
 
 type DetailNurseAdminView struct {
 	AccountNurseAdminView
 	NurseDetailAdmin
-	Techniques []TechniqueModel
+	Techniques []TechniqueModel `json:"techniques"`
 }
 
 type TechniqueModel struct {

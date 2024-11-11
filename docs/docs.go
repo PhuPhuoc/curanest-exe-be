@@ -52,6 +52,52 @@ const docTemplate = `{
                 }
             }
         },
+        "/customers/{customer_id}/create-patient-profile": {
+            "post": {
+                "description": "create new customer",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "patients"
+                ],
+                "summary": "create new customer",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Customer ID",
+                        "name": "customer_id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Patient register data",
+                        "name": "info",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/patientmodel.PatientCreationModel"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "message success",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request error",
+                        "schema": {}
+                    }
+                }
+            }
+        },
         "/nurses": {
             "get": {
                 "description": "get list nurses (card)",
@@ -431,6 +477,35 @@ const docTemplate = `{
                 },
                 "work_experience": {
                     "type": "string"
+                }
+            }
+        },
+        "patientmodel.PatientCreationModel": {
+            "type": "object",
+            "properties": {
+                "address": {
+                    "type": "string"
+                },
+                "avatar": {
+                    "type": "string"
+                },
+                "citizen_id": {
+                    "type": "string"
+                },
+                "dob": {
+                    "type": "string"
+                },
+                "full_name": {
+                    "type": "string"
+                },
+                "phone_number": {
+                    "type": "string"
+                },
+                "techniques": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
                 }
             }
         },

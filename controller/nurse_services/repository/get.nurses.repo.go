@@ -11,7 +11,7 @@ func (store *nurseStore) GetNurses() ([]nursemodel.NurseCardModel, error) {
 
 	query := `
 		select
-			n.user_id, n.full_name, n.current_workplace, n.expertise
+			n.user_id, u.avatar, n.full_name, n.current_workplace, n.expertise
 		from
 			nurses n
 		join

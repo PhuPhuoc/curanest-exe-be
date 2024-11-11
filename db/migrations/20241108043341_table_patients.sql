@@ -8,6 +8,7 @@ CREATE TABLE IF NOT EXISTS `patients` (
     `dob` VARCHAR(20),
     `citizen_id` VARCHAR(30) NOT NULL,
     `address` TEXT,
+    `phone_number` VARCHAR(20),
     UNIQUE(`citizen_id`)
 );
 

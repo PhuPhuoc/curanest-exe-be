@@ -99,7 +99,7 @@ func (store *nurseStore) checkDuplicateDataForNurse(data *nursemodel.NurseCreati
 	if err := store.db.Get(&flag_duplicate_phone_number, rawsql_checkPhoneNumberExist, data.PhoneNumber); err != nil {
 		return fmt.Errorf("unable to check for duplicate phone number: %v", err)
 	}
-	if flag_duplicate_email {
+	if flag_duplicate_phone_number {
 		return fmt.Errorf("this phone number already exists")
 	}
 	return nil
