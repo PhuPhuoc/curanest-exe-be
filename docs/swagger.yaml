@@ -231,7 +231,7 @@ paths:
     get:
       consumes:
       - application/json
-      description: get list nurses (card)
+      description: get nurse detail (card)
       parameters:
       - description: Nurse ID
         in: path
@@ -256,7 +256,7 @@ paths:
         "400":
           description: Bad request error
           schema: {}
-      summary: get list nurses (card)
+      summary: get nurse detail (card)
       tags:
       - nurses
   /techniques:

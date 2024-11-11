@@ -10,8 +10,8 @@ import (
 )
 
 // @BasePath		/api/v1
-// @Summary		get list nurses (card)
-// @Description	get list nurses (card)
+// @Summary		get nurse detail (card)
+// @Description	get nurse detail (card)
 // @Tags			nurses
 // @Accept			json
 // @Produce		json

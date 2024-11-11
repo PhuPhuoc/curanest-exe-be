@@ -202,7 +202,7 @@ const docTemplate = `{
         },
         "/nurses/{nurse_id}": {
             "get": {
-                "description": "get list nurses (card)",
+                "description": "get nurse detail (card)",
                 "consumes": [
                     "application/json"
                 ],
@@ -212,7 +212,7 @@ const docTemplate = `{
                 "tags": [
                     "nurses"
                 ],
-                "summary": "get list nurses (card)",
+                "summary": "get nurse detail (card)",
                 "parameters": [
                     {
                         "type": "string",
