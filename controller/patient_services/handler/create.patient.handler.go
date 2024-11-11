@@ -35,7 +35,7 @@ func createPatientHandler(db *sqlx.DB) gin.HandlerFunc {
 		}
 		repo := patientrepository.NewPatientStore(db)
 		if err := repo.CreatePatient(customer_id, &req); err != nil {
-			utils.SendError(c, http.StatusBadRequest, "cannot create new market's post", err.Error())
+			utils.SendError(c, http.StatusBadRequest, "cannot create new patient", err.Error())
 			return
 		}
 		utils.SendSuccess(c, http.StatusOK, "new patient registration successful", nil, nil)

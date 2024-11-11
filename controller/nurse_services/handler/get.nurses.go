@@ -23,7 +23,7 @@ func getNursesHandler(db *sqlx.DB) gin.HandlerFunc {
 		repo := nurserepository.NewNurseStore(db)
 		list_fate, err := repo.GetNurses()
 		if err != nil {
-			utils.SendError(c, http.StatusBadRequest, "cannot get list categories", err.Error())
+			utils.SendError(c, http.StatusBadRequest, "cannot get list nurses", err.Error())
 			return
 		}
 		utils.SendSuccess(c, http.StatusOK, "Get data successfully", list_fate, nil)

@@ -158,6 +158,31 @@ paths:
       summary: create new customer
       tags:
       - patients
+  /customers/{customer_id}/patients:
+    get:
+      consumes:
+      - application/json
+      description: get list patients of customer
+      parameters:
+      - description: Customer ID
+        in: path
+        name: customer_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: message success
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad request error
+          schema: {}
+      summary: get list patients of customer
+      tags:
+      - patients
   /nurses:
     get:
       consumes:

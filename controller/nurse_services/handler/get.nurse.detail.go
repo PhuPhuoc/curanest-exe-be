@@ -9,17 +9,17 @@ import (
 	"github.com/jmoiron/sqlx"
 )
 
-//	@BasePath		/api/v1
-//	@Summary		get list nurses (card)
-//	@Description	get list nurses (card)
-//	@Tags			nurses
-//	@Accept			json
-//	@Produce		json
-//	@Param			nurse_id	path		string					true	"Nurse ID"
-//	@Param			role		query		string					false	"Role"	Enums(user, admin)
-//	@Success		200			{object}	map[string]interface{}	"data"
-//	@Failure		400			{object}	error					"Bad request error"
-//	@Router			/nurses/{nurse_id} [get]
+// @BasePath		/api/v1
+// @Summary		get list nurses (card)
+// @Description	get list nurses (card)
+// @Tags			nurses
+// @Accept			json
+// @Produce		json
+// @Param			nurse_id	path		string					true	"Nurse ID"
+// @Param			role		query		string					false	"Role"	Enums(user, admin)
+// @Success		200			{object}	map[string]interface{}	"data"
+// @Failure		400			{object}	error					"Bad request error"
+// @Router			/nurses/{nurse_id} [get]
 func getDetailNurseHandler(db *sqlx.DB) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		nurse_id := c.Param("nurse_id")
@@ -31,7 +31,7 @@ func getDetailNurseHandler(db *sqlx.DB) gin.HandlerFunc {
 		repo := nurserepository.NewNurseStore(db)
 		nurses, err := repo.GetNurseDetail(nurse_id, role)
 		if err != nil {
-			utils.SendError(c, http.StatusBadRequest, "Cannot get list of nurses", err.Error())
+			utils.SendError(c, http.StatusBadRequest, "Cannot get nurse's data", err.Error())
 			return
 		}
 		utils.SendSuccess(c, http.StatusOK, "Get data successfully", nurses, nil)

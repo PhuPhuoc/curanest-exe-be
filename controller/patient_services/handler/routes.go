@@ -7,8 +7,5 @@ import (
 
 func RegisterPatientRoutes(rg *gin.RouterGroup, db *sqlx.DB) {
 	rg.POST("/customers/:customer_id/create-patient-profile", createPatientHandler(db))
-	// eg := rg.Group("/patients")
-	// {
-
-	// }
+	rg.GET("/customers/:customer_id/patients", getPatientsHandler(db))
 }
