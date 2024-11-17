@@ -12,6 +12,8 @@ CREATE TABLE IF NOT EXISTS `patients` (
     `district` VARCHAR(50),
     `city` VARCHAR(50),
     `address` TEXT,
+    `medical_description` TEXT,
+    `note_for_nurses` TEXT,
     UNIQUE(`citizen_id`)
 );
 

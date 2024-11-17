@@ -10,7 +10,7 @@ func (store *patientStore) GetNurseByCustomerID(customer_id string) ([]patientmo
 	list_patient := []patientmodel.PatientModelView{}
 	query := `
 		select
-			p.id, p.avatar, p.full_name, p.phone_number, p.old, p.dob, p.citizen_id, p.ward, p.district, p.city, p.address
+			p.id, p.avatar, p.full_name, p.phone_number, p.old, p.dob, p.citizen_id, p.ward, p.district, p.city, p.address, p.medical_description, p.note_for_nurses
 		from
 			patients p
 		join

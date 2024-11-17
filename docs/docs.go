@@ -618,6 +618,12 @@ const docTemplate = `{
                 "full_name": {
                     "type": "string"
                 },
+                "medical_description": {
+                    "type": "string"
+                },
+                "note_for_nurses": {
+                    "type": "string"
+                },
                 "phone_number": {
                     "type": "string"
                 },
