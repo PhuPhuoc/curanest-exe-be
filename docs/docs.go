@@ -148,6 +148,20 @@ const docTemplate = `{
                     "nurses"
                 ],
                 "summary": "get list nurses (card)",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Filter by nurse's full name",
+                        "name": "full-name",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Filter by nurse's phone number",
+                        "name": "phone-number",
+                        "in": "query"
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "data",

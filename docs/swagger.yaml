@@ -218,6 +218,15 @@ paths:
       consumes:
       - application/json
       description: get list nurses (card)
+      parameters:
+      - description: Filter by nurse's full name
+        in: query
+        name: full-name
+        type: string
+      - description: Filter by nurse's phone number
+        in: query
+        name: phone-number
+        type: string
       produces:
       - application/json
       responses:

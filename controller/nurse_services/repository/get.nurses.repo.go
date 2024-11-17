@@ -2,11 +2,12 @@ package nurserepository
 
 import (
 	"fmt"
+	"strings"
 
 	nursemodel "github.com/PhuPhuoc/curanest_exe_be/controller/nurse_services/model"
 )
 
-func (store *nurseStore) GetNurses() ([]nursemodel.NurseCardModel, error) {
+func (store *nurseStore) GetNurses(filter *nursemodel.NurseFilter) ([]nursemodel.NurseCardModel, error) {
 	list_nurses := []nursemodel.NurseCardModel{}
 
 	query := `
@@ -20,7 +21,23 @@ func (store *nurseStore) GetNurses() ([]nursemodel.NurseCardModel, error) {
 			u.deleted_at is null
 	`
 
-	if err := store.db.Select(&list_nurses, query); err != nil {
+	var conditions []string
+	var args []any
+
+	if filter.FullName != "" {
+		conditions = append(conditions, "n.full_name like ?")
+		args = append(args, "%"+filter.FullName+"%")
+	}
+	if filter.PhoneNumber != "" {
+		conditions = append(conditions, "u.phone_number like ?")
+		args = append(args, "%"+filter.PhoneNumber+"%")
+	}
+
+	if len(conditions) > 0 {
+		query += " and " + strings.Join(conditions, " and ")
+	}
+
+	if err := store.db.Select(&list_nurses, query, args...); err != nil {
 		return nil, fmt.Errorf("cannot get nurses <%w>", err)
 	}
 
