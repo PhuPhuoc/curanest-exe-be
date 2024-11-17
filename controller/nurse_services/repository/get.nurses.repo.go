@@ -12,7 +12,7 @@ func (store *nurseStore) GetNurses(filter *nursemodel.NurseFilter) ([]nursemodel
 
 	query := `
 		select
-			n.user_id, u.avatar, n.full_name, n.current_workplace, n.expertise
+			n.user_id, u.avatar, n.full_name, n.phone_number, n.current_workplace, n.expertise
 		from
 			nurses n
 		join

@@ -152,13 +152,13 @@ const docTemplate = `{
                     {
                         "type": "string",
                         "description": "Filter by nurse's full name",
-                        "name": "full-name",
+                        "name": "full_name",
                         "in": "query"
                     },
                     {
                         "type": "string",
                         "description": "Filter by nurse's phone number",
-                        "name": "phone-number",
+                        "name": "phone_number",
                         "in": "query"
                     }
                 ],

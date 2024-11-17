@@ -10,17 +10,17 @@ import (
 	"github.com/jmoiron/sqlx"
 )
 
-//	@BasePath		/api/v1
-//	@Summary		get list nurses (card)
-//	@Description	get list nurses (card)
-//	@Tags			nurses
-//	@Accept			json
-//	@Produce		json
-//	@Param			full-name		query		string					false	"Filter by nurse's full name"
-//	@Param			phone-number	query		string					false	"Filter by nurse's phone number"
-//	@Success		200				{object}	map[string]interface{}	"data"
-//	@Failure		400				{object}	error					"Bad request error"
-//	@Router			/nurses [get]
+// @BasePath		/api/v1
+// @Summary		get list nurses (card)
+// @Description	get list nurses (card)
+// @Tags			nurses
+// @Accept			json
+// @Produce		json
+// @Param			full_name		query		string					false	"Filter by nurse's full name"
+// @Param			phone_number	query		string					false	"Filter by nurse's phone number"
+// @Success		200				{object}	map[string]interface{}	"data"
+// @Failure		400				{object}	error					"Bad request error"
+// @Router			/nurses [get]
 func getNursesHandler(db *sqlx.DB) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		// get query from url
