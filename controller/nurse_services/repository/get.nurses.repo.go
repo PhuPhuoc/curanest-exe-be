@@ -29,7 +29,7 @@ func (store *nurseStore) GetNurses(filter *nursemodel.NurseFilter) ([]nursemodel
 		args = append(args, "%"+filter.FullName+"%")
 	}
 	if filter.PhoneNumber != "" {
-		conditions = append(conditions, "u.phone_number like ?")
+		conditions = append(conditions, "n.phone_number like ?")
 		args = append(args, "%"+filter.PhoneNumber+"%")
 	}
 
