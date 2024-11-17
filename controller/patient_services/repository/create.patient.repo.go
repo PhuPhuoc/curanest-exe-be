@@ -43,9 +43,9 @@ func (store *patientStore) CreatePatient(customer_id string, data *patientmodel.
 
 	query_patient := `
 		insert into patients
-			(id, avatar, full_name, old, dob, citizen_id, address, phone_number)
+			(id, avatar, full_name, phone_number, old, dob, citizen_id, ward, district, city, address)
 		values
-			(:id, :avatar, :full_name, :old, :dob, :citizen_id, :address, :phone_number)
+			(:id, :avatar, :full_name, :phone_number, :old, :dob, :citizen_id, :ward, :district, :city, :address)
 	`
 	_, err = tx.NamedExec(query_patient, data)
 	if err != nil {

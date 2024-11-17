@@ -51,6 +51,26 @@ definitions:
       work_experience:
         type: string
     type: object
+  nursemodel.Shift:
+    properties:
+      shift-date:
+        type: string
+      shift-from:
+        type: string
+      shift-to:
+        type: string
+    type: object
+  nursemodel.WeeklyWorkSchedule:
+    properties:
+      shifts:
+        items:
+          $ref: '#/definitions/nursemodel.Shift'
+        type: array
+      week-from:
+        type: string
+      week-to:
+        type: string
+    type: object
   patientmodel.PatientCreationModel:
     properties:
       address:
@@ -58,6 +78,10 @@ definitions:
       avatar:
         type: string
       citizen_id:
+        type: string
+      city:
+        type: string
+      district:
         type: string
       dob:
         type: string
@@ -69,6 +93,8 @@ definitions:
         items:
           type: string
         type: array
+      ward:
+        type: string
     type: object
   techniquemodel.TechniqueCreationModel:
     properties:
@@ -257,6 +283,37 @@ paths:
           description: Bad request error
           schema: {}
       summary: get nurse detail (card)
+      tags:
+      - nurses
+  /nurses/{nurse_id}/register-weekly-work-schedule:
+    post:
+      consumes:
+      - application/json
+      description: register for nurse's work schedule
+      parameters:
+      - description: Nurse ID
+        in: path
+        name: nurse_id
+        required: true
+        type: string
+      - description: Nurse shift information
+        in: body
+        name: creation_form
+        required: true
+        schema:
+          $ref: '#/definitions/nursemodel.WeeklyWorkSchedule'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: data
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad request error
+          schema: {}
+      summary: register for nurse's work schedule
       tags:
       - nurses
   /techniques:

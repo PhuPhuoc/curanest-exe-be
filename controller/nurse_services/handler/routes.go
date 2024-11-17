@@ -11,5 +11,6 @@ func RegisterNurseRoutes(rg *gin.RouterGroup, db *sqlx.DB) {
 		eg.GET("", getNursesHandler(db))
 		eg.GET("/:nurse_id", getDetailNurseHandler(db))
 		eg.POST("", createNewNurseHandler(db))
+		eg.GET("/:nurse_id/register-weekly-work-schedule", registerWeeklyScheduleHandler(db))
 	}
 }

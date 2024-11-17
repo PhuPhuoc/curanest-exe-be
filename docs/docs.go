@@ -247,6 +247,52 @@ const docTemplate = `{
                 }
             }
         },
+        "/nurses/{nurse_id}/register-weekly-work-schedule": {
+            "post": {
+                "description": "register for nurse's work schedule",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "nurses"
+                ],
+                "summary": "register for nurse's work schedule",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Nurse ID",
+                        "name": "nurse_id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Nurse shift information",
+                        "name": "creation_form",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/nursemodel.WeeklyWorkSchedule"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "data",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request error",
+                        "schema": {}
+                    }
+                }
+            }
+        },
         "/techniques": {
             "get": {
                 "description": "get techniques",
@@ -517,6 +563,37 @@ const docTemplate = `{
                 }
             }
         },
+        "nursemodel.Shift": {
+            "type": "object",
+            "properties": {
+                "shift-date": {
+                    "type": "string"
+                },
+                "shift-from": {
+                    "type": "string"
+                },
+                "shift-to": {
+                    "type": "string"
+                }
+            }
+        },
+        "nursemodel.WeeklyWorkSchedule": {
+            "type": "object",
+            "properties": {
+                "shifts": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/nursemodel.Shift"
+                    }
+                },
+                "week-from": {
+                    "type": "string"
+                },
+                "week-to": {
+                    "type": "string"
+                }
+            }
+        },
         "patientmodel.PatientCreationModel": {
             "type": "object",
             "properties": {
@@ -527,6 +604,12 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "citizen_id": {
+                    "type": "string"
+                },
+                "city": {
+                    "type": "string"
+                },
+                "district": {
                     "type": "string"
                 },
                 "dob": {
@@ -543,6 +626,9 @@ const docTemplate = `{
                     "items": {
                         "type": "string"
                     }
+                },
+                "ward": {
+                    "type": "string"
                 }
             }
         },

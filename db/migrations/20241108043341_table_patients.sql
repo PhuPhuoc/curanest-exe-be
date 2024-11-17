@@ -4,11 +4,14 @@ CREATE TABLE IF NOT EXISTS `patients` (
     `id` VARCHAR(100) PRIMARY KEY,
     `avatar` VARCHAR(255),
     `full_name` VARCHAR(255),
+    `phone_number` VARCHAR(20),
     `old` TINYINT,
     `dob` VARCHAR(20),
     `citizen_id` VARCHAR(30) NOT NULL,
+    `ward` VARCHAR(50),
+    `district` VARCHAR(50),
+    `city` VARCHAR(50),
     `address` TEXT,
-    `phone_number` VARCHAR(20),
     UNIQUE(`citizen_id`)
 );
 
