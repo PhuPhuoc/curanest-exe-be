@@ -55,6 +55,5 @@ func (store *nurseStore) GetNurses(filter *nursemodel.NurseFilter) ([]nursemodel
 		}
 		list_nurses[i].Techniques = slice_tech
 	}
-
 	return list_nurses, nil
 }

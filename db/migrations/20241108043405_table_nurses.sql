@@ -21,5 +21,7 @@ CREATE TABLE IF NOT EXISTS `nurses` (
 -- +goose Down
 -- +goose StatementBegin
 ALTER TABLE `nurses` DROP FOREIGN KEY `fk_user_nurse`;
+-- +goose StatementEnd
+-- +goose StatementBegin
 DROP TABLE IF EXISTS `nurses`;
 -- +goose StatementEnd

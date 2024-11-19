@@ -252,6 +252,55 @@
                 }
             }
         },
+        "/nurses/{nurse_id}/get-weekly-work-schedule": {
+            "get": {
+                "description": "get weeky shedule of nurses",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "nurses"
+                ],
+                "summary": "get weeky shedule of nurses",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Nurse ID",
+                        "name": "nurse_id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "date from",
+                        "name": "from",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "date to",
+                        "name": "to",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "data",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request error",
+                        "schema": {}
+                    }
+                }
+            }
+        },
         "/nurses/{nurse_id}/register-weekly-work-schedule": {
             "post": {
                 "description": "register for nurse's work schedule",
@@ -571,14 +620,17 @@
         "nursemodel.Shift": {
             "type": "object",
             "properties": {
-                "shift-date": {
-                    "type": "string"
+                "shift_date": {
+                    "type": "string",
+                    "example": "2024-11-20"
                 },
-                "shift-from": {
-                    "type": "string"
+                "shift_from": {
+                    "type": "string",
+                    "example": "00:00:00"
                 },
-                "shift-to": {
-                    "type": "string"
+                "shift_to": {
+                    "type": "string",
+                    "example": "00:00:00"
                 }
             }
         },
@@ -591,11 +643,13 @@
                         "$ref": "#/definitions/nursemodel.Shift"
                     }
                 },
-                "week-from": {
-                    "type": "string"
+                "week_from": {
+                    "type": "string",
+                    "example": "2024-11-17"
                 },
-                "week-to": {
-                    "type": "string"
+                "week_to": {
+                    "type": "string",
+                    "example": "2024-11-23"
                 }
             }
         },

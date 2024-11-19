@@ -53,11 +53,14 @@ definitions:
     type: object
   nursemodel.Shift:
     properties:
-      shift-date:
+      shift_date:
+        example: "2024-11-20"
         type: string
-      shift-from:
+      shift_from:
+        example: "00:00:00"
         type: string
-      shift-to:
+      shift_to:
+        example: "00:00:00"
         type: string
     type: object
   nursemodel.WeeklyWorkSchedule:
@@ -66,9 +69,11 @@ definitions:
         items:
           $ref: '#/definitions/nursemodel.Shift'
         type: array
-      week-from:
+      week_from:
+        example: "2024-11-17"
         type: string
-      week-to:
+      week_to:
+        example: "2024-11-23"
         type: string
     type: object
   patientmodel.PatientCreationModel:
@@ -296,6 +301,39 @@ paths:
           description: Bad request error
           schema: {}
       summary: get nurse detail (card)
+      tags:
+      - nurses
+  /nurses/{nurse_id}/get-weekly-work-schedule:
+    get:
+      consumes:
+      - application/json
+      description: get weeky shedule of nurses
+      parameters:
+      - description: Nurse ID
+        in: path
+        name: nurse_id
+        required: true
+        type: string
+      - description: date from
+        in: query
+        name: from
+        type: string
+      - description: date to
+        in: query
+        name: to
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: data
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad request error
+          schema: {}
+      summary: get weeky shedule of nurses
       tags:
       - nurses
   /nurses/{nurse_id}/register-weekly-work-schedule:

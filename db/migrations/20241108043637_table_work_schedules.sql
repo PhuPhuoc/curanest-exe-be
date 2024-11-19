@@ -20,6 +20,10 @@ CREATE TABLE IF NOT EXISTS `work_schedules` (
 -- +goose Down
 -- +goose StatementBegin
 ALTER TABLE `work_schedules` DROP FOREIGN KEY `fk_work_schedules_appointment`;
+-- +goose StatementEnd
+-- +goose StatementBegin
 ALTER TABLE `work_schedules` DROP FOREIGN KEY `fk_work_schedules_nurse`;
+-- +goose StatementEnd
+-- +goose StatementBegin
 DROP TABLE IF EXISTS `work_schedules`;
 -- +goose StatementEnd

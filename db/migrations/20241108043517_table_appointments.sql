@@ -21,6 +21,10 @@ CREATE TABLE IF NOT EXISTS `appointments` (
 -- +goose Down
 -- +goose StatementBegin
 ALTER TABLE `appointments` DROP FOREIGN KEY `fk_appointments_patient`;
+-- +goose StatementEnd
+-- +goose StatementBegin
 ALTER TABLE `appointments` DROP FOREIGN KEY `fk_appointments_nurse`;
+-- +goose StatementEnd
+-- +goose StatementBegin
 DROP TABLE IF EXISTS `appointments`;
 -- +goose StatementEnd

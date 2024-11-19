@@ -16,7 +16,9 @@ CREATE TABLE IF NOT EXISTS `patients` (
     `note_for_nurses` TEXT,
     UNIQUE(`citizen_id`)
 );
+-- +goose StatementEnd
 
+-- +goose StatementBegin
 CREATE TABLE IF NOT EXISTS `customer_patient` (
     `user_id` VARCHAR(100),
     `patient_id` VARCHAR(100),
@@ -33,7 +35,16 @@ CREATE TABLE IF NOT EXISTS `customer_patient` (
 -- +goose Down
 -- +goose StatementBegin
 ALTER TABLE `customer_patient` DROP FOREIGN KEY `fk_customer_patient_user`;
+-- +goose StatementEnd
+
+-- +goose StatementBegin
 ALTER TABLE `customer_patient` DROP FOREIGN KEY `fk_customer_patient_patient`;
+-- +goose StatementEnd
+
+-- +goose StatementBegin
 DROP TABLE IF EXISTS `customer_patient`;
+-- +goose StatementEnd
+
+-- +goose StatementBegin
 DROP TABLE IF EXISTS `patients`;
 -- +goose StatementEnd

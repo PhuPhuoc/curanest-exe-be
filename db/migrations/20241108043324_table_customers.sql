@@ -20,5 +20,7 @@ CREATE TABLE IF NOT EXISTS `customers` (
 -- +goose Down
 -- +goose StatementBegin
 ALTER TABLE `customers` DROP FOREIGN KEY `fk_user_customer`;
+-- +goose StatementEnd
+-- +goose StatementBegin
 DROP TABLE IF EXISTS `customers`;
 -- +goose StatementEnd
