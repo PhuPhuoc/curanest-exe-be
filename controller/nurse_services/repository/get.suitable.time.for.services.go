@@ -14,7 +14,7 @@ type TimeRange struct {
 	ID    string
 }
 
-func (store *nurseStore) GetSuitableTimeForServices(nurse_id, from, to string, totalTimeMinute int) (suitabletimes []nursemodel.TimeFrameServices, err error) {
+func (store *nurseStore) GetSuitableTimeForServices(nurse_id, from, to string, totalTimeMinute int) ([]nursemodel.TimeFrameServices, error) {
 	shifts := []nursemodel.ShiftCurrent{}
 	query := `
 		select id, shift_date, shift_from, shift_to, status, appointment_id
@@ -23,7 +23,7 @@ func (store *nurseStore) GetSuitableTimeForServices(nurse_id, from, to string, t
 		order by shift_date, shift_from 
 	`
 	if err_query := store.db.Select(&shifts, query, nurse_id, from, to, "available"); err_query != nil {
-		err = fmt.Errorf("cannot select schedule from db <%w>", err_query)
+		return nil, fmt.Errorf("cannot select schedule from db <%w>", err_query)
 	}
 
 	// todo: convert shift right format -> time
@@ -32,8 +32,7 @@ func (store *nurseStore) GetSuitableTimeForServices(nurse_id, from, to string, t
 		start, err1 := time.Parse("15:04:05", shift.ShiftFrom)
 		end, err2 := time.Parse("15:04:05", shift.ShiftTo)
 		if err1 != nil || err2 != nil {
-			err = fmt.Errorf("invalid shift time format")
-			return
+			return nil, fmt.Errorf("invalid shift time format")
 		}
 		timeRanges = append(timeRanges, TimeRange{
 			Date:  shift.ShiftDate,
@@ -46,7 +45,7 @@ func (store *nurseStore) GetSuitableTimeForServices(nurse_id, from, to string, t
 	// todo: find suitable timeframe
 	// todo - change totalTimeMinute (total time (minute) of all services customer want to book) to duration
 	requireDuration := time.Duration(totalTimeMinute) * time.Minute
-
+	suitabletimes := []nursemodel.TimeFrameServices{}
 	for i := 0; i < len(timeRanges); i++ {
 		currentDate := timeRanges[i].Date
 		currentStart := timeRanges[i].Start
@@ -79,11 +78,12 @@ func (store *nurseStore) GetSuitableTimeForServices(nurse_id, from, to string, t
 						To:               currentEnd.Format("15:04:05"),
 						NurseScheduleIDs: nuresScheduleIDs,
 					})
+					break
 				}
 			} else {
 				break
 			}
 		}
 	}
-	return
+	return suitabletimes, nil
 }
