@@ -33,15 +33,13 @@ func (store *nurseStore) RegisterWeeklySchedule(nurse_id string, data *nursemode
 
 	// todo 1
 	query_get_current_shift := `
-		select 
-			s.id, s.shift_date, s.shift_from, s.shift_to, s.status, s.appointment_id
-		from
-			work_schedules s
-		where 
-			s.nurse_id=?	
+		select id, shift_date, shift_from, shift_to, status, appointment_id
+		from work_schedules
+		where shift_date >= ? and shift_date <= ? and nurse_id=? 
+		order by shift_date, shift_from 
 	`
 	current_shifts := []nursemodel.ShiftCurrent{}
-	if err := tx.Select(&current_shifts, query_get_current_shift, nurse_id); err != nil {
+	if err := tx.Select(&current_shifts, query_get_current_shift, data.WeekFrom, data.WeekTo, nurse_id); err != nil {
 		return fmt.Errorf("cannot get current shifts <%w>", err)
 	}
 	fmt.Println("current_shift: ", current_shifts)

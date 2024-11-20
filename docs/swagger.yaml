@@ -303,6 +303,46 @@ paths:
       summary: get nurse detail (card)
       tags:
       - nurses
+  /nurses/{nurse_id}/get-suitable-time-frames:
+    get:
+      consumes:
+      - application/json
+      description: get suitable time frames for booking services
+      parameters:
+      - description: Nurse ID
+        in: path
+        name: nurse_id
+        required: true
+        type: string
+      - description: date from
+        in: query
+        name: from
+        required: true
+        type: string
+      - description: date to
+        in: query
+        name: to
+        required: true
+        type: string
+      - description: total minute
+        in: query
+        name: total_minute
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: data
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad request error
+          schema: {}
+      summary: get suitable time frames for booking services
+      tags:
+      - nurses
   /nurses/{nurse_id}/get-weekly-work-schedule:
     get:
       consumes:
@@ -317,10 +357,12 @@ paths:
       - description: date from
         in: query
         name: from
+        required: true
         type: string
       - description: date to
         in: query
         name: to
+        required: true
         type: string
       produces:
       - application/json

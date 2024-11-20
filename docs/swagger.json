@@ -252,6 +252,64 @@
                 }
             }
         },
+        "/nurses/{nurse_id}/get-suitable-time-frames": {
+            "get": {
+                "description": "get suitable time frames for booking services",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "nurses"
+                ],
+                "summary": "get suitable time frames for booking services",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Nurse ID",
+                        "name": "nurse_id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "date from",
+                        "name": "from",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "date to",
+                        "name": "to",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "total minute",
+                        "name": "total_minute",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "data",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request error",
+                        "schema": {}
+                    }
+                }
+            }
+        },
         "/nurses/{nurse_id}/get-weekly-work-schedule": {
             "get": {
                 "description": "get weeky shedule of nurses",
@@ -277,13 +335,15 @@
                         "type": "string",
                         "description": "date from",
                         "name": "from",
-                        "in": "query"
+                        "in": "query",
+                        "required": true
                     },
                     {
                         "type": "string",
                         "description": "date to",
                         "name": "to",
-                        "in": "query"
+                        "in": "query",
+                        "required": true
                     }
                 ],
                 "responses": {
