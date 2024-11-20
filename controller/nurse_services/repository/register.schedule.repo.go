@@ -42,12 +42,10 @@ func (store *nurseStore) RegisterWeeklySchedule(nurse_id string, data *nursemode
 	if err := tx.Select(&current_shifts, query_get_current_shift, data.WeekFrom, data.WeekTo, nurse_id); err != nil {
 		return fmt.Errorf("cannot get current shifts <%w>", err)
 	}
-	fmt.Println("current_shift: ", current_shifts)
 
 	// todo 2 vs 3
 	toAdd, toRemove := findShiftsToAddOrRemove(data.Shifts, current_shifts)
-	fmt.Println("toAdd: ", toAdd)
-	fmt.Println("toRemove: ", toRemove)
+
 	// todo 2 -> add new shift
 	query_add_shift := `
 		insert into work_schedules 

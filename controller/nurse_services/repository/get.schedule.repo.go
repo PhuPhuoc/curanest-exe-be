@@ -6,7 +6,8 @@ import (
 	nursemodel "github.com/PhuPhuoc/curanest_exe_be/controller/nurse_services/model"
 )
 
-func (store *nurseStore) GetSchedules(nurse_id, from, to string) (shifts []nursemodel.ShiftCurrent, err error) {
+func (store *nurseStore) GetSchedules(nurse_id, from, to string) ([]nursemodel.ShiftCurrent, error) {
+	shifts := []nursemodel.ShiftCurrent{}
 	query := `
 		select id, shift_date, shift_from, shift_to, status, appointment_id
 		from work_schedules
@@ -14,7 +15,7 @@ func (store *nurseStore) GetSchedules(nurse_id, from, to string) (shifts []nurse
 		order by shift_date, shift_from 
 	`
 	if err_query := store.db.Select(&shifts, query, from, to, nurse_id); err_query != nil {
-		err = fmt.Errorf("cannot select schedule from db <%w>", err_query)
+		return nil, fmt.Errorf("cannot select schedule from db <%w>", err_query)
 	}
-	return
+	return shifts, nil
 }
