@@ -1,4 +1,23 @@
 definitions:
+  appointmentmodel.RegisterAppoinment:
+    properties:
+      appointment_date:
+        type: string
+      listNurseWorkSchedules:
+        items:
+          type: string
+        type: array
+      nurse_id:
+        type: string
+      patient_id:
+        type: string
+      techniques:
+        type: string
+      time_from_to:
+        type: string
+      total_fee:
+        type: integer
+    type: object
   customermodel.CustomerModel:
     properties:
       address:
@@ -137,6 +156,32 @@ info:
   title: Curanest API for EXE201
   version: "1.0"
 paths:
+  /appointments:
+    post:
+      consumes:
+      - application/json
+      description: create new appointment
+      parameters:
+      - description: Nurse creation data
+        in: body
+        name: creation_form
+        required: true
+        schema:
+          $ref: '#/definitions/appointmentmodel.RegisterAppoinment'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: message success
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad request error
+          schema: {}
+      summary: create new appointment
+      tags:
+      - appointments
   /customers/{customer_id}:
     get:
       consumes:

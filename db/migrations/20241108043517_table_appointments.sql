@@ -6,7 +6,7 @@ CREATE TABLE IF NOT EXISTS `appointments` (
     `nurse_id` VARCHAR(100) NOT NULL,
     `appointment_date` DATE NOT NULL,
     `time_from_to` VARCHAR(50) NOT NULL,
-    `status` ENUM('confirmed', 'reconfirm', 'cancel', 'completed'),
+    `status` ENUM('pending','confirmed', 'cancel', 'completed'),
     `techniques` TEXT,
     `total_fee` INT,
     CONSTRAINT `fk_appointments_patient`

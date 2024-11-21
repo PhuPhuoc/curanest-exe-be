@@ -3,6 +3,7 @@ package api
 import (
 	"fmt"
 
+	appointmenthandler "github.com/PhuPhuoc/curanest_exe_be/controller/appointment_services/handler"
 	customerhandler "github.com/PhuPhuoc/curanest_exe_be/controller/customer_services/handler"
 	nursehandler "github.com/PhuPhuoc/curanest_exe_be/controller/nurse_services/handler"
 	patienthandler "github.com/PhuPhuoc/curanest_exe_be/controller/patient_services/handler"
@@ -56,4 +57,5 @@ func (sv *server) registerRoutes(v1 *gin.RouterGroup) {
 	techniquehandler.RegisterTechniqueRoutes(v1, sv.db)
 	nursehandler.RegisterNurseRoutes(v1, sv.db)
 	patienthandler.RegisterPatientRoutes(v1, sv.db)
+	appointmenthandler.RegisterNurseRoutes(v1, sv.db)
 }

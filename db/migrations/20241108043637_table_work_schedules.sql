@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS `work_schedules` (
     `shift_date` DATE NOT NULL,
     `shift_from` TIME NOT NULL,
     `shift_to` TIME NOT NULL,
-    `status` ENUM('available', 'not-available'),
+    `status` ENUM('available', 'not-available', 'pending'),
     CONSTRAINT `fk_work_schedules_appointment`
     FOREIGN KEY (`appointment_id`) REFERENCES `appointments`(`id`)
     ON DELETE CASCADE ON UPDATE CASCADE,

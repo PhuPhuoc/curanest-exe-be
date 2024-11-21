@@ -6,6 +6,45 @@
         "version": "1.0"
     },
     "paths": {
+        "/appointments": {
+            "post": {
+                "description": "create new appointment",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "appointments"
+                ],
+                "summary": "create new appointment",
+                "parameters": [
+                    {
+                        "description": "Nurse creation data",
+                        "name": "creation_form",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/appointmentmodel.RegisterAppoinment"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "message success",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request error",
+                        "schema": {}
+                    }
+                }
+            }
+        },
         "/customers/{customer_id}": {
             "get": {
                 "description": "get customer information",
@@ -598,6 +637,35 @@
         }
     },
     "definitions": {
+        "appointmentmodel.RegisterAppoinment": {
+            "type": "object",
+            "properties": {
+                "appointment_date": {
+                    "type": "string"
+                },
+                "listNurseWorkSchedules": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "nurse_id": {
+                    "type": "string"
+                },
+                "patient_id": {
+                    "type": "string"
+                },
+                "techniques": {
+                    "type": "string"
+                },
+                "time_from_to": {
+                    "type": "string"
+                },
+                "total_fee": {
+                    "type": "integer"
+                }
+            }
+        },
         "customermodel.CustomerModel": {
             "type": "object",
             "properties": {

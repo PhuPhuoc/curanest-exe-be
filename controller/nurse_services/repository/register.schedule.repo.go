@@ -78,7 +78,7 @@ func (store *nurseStore) RegisterWeeklySchedule(nurse_id string, data *nursemode
 func checkShiftAvalableToRemove(shift_id string, current_shifts []nursemodel.ShiftCurrent) bool {
 	for _, shift := range current_shifts {
 		if shift.ID == shift_id {
-			if shift.Status == "not-available" {
+			if shift.Status == "not-available" || shift.Status == "pending" {
 				return false
 			}
 			break
