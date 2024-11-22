@@ -1,11 +1,11 @@
 package appointmentmodel
 
 type RegisterAppoinment struct {
-	AppointmentModel
+	AppointmentRegisterModel
 	ListNurseWorkSchedules []string
 }
 
-type AppointmentModel struct {
+type AppointmentRegisterModel struct {
 	ID              string `db:"id" json:"-"`
 	PatientID       string `db:"patient_id" json:"patient_id"`
 	NurseID         string `db:"nurse_id" json:"nurse_id"`
