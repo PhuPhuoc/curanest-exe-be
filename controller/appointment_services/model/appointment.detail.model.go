@@ -8,11 +8,11 @@ type DetailAppointment struct {
 
 type AppointmentModel struct {
 	ID              string `db:"id" json:"-"`
-	NurseID         string `db:"nurse_id" json:"nurse_id"`
-	PatientID       string `db:"patient_id" json:"id"`
+	NurseID         string `db:"nurse_id" json:"-"`
+	PatientID       string `db:"patient_id" json:"-"`
 	AppointmentDate string `db:"appointment_date" json:"appointment_date"`
 	TimeFromTo      string `db:"time_from_to" json:"time_from_to"`
-	Status          string `db:"status" json:"-"`
+	Status          string `db:"status" json:"status"`
 	Techniques      string `db:"techniques" json:"techniques"`
 	TotalFee        int    `db:"total_fee" json:"total_fee"`
 }

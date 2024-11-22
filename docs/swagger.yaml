@@ -240,6 +240,49 @@ paths:
       summary: nurse confirm appointment
       tags:
       - appointments
+  /appointments/card/{account_id}:
+    get:
+      consumes:
+      - application/json
+      description: get appointment (card)
+      parameters:
+      - description: Account ID
+        in: path
+        name: account_id
+        required: true
+        type: string
+      - description: Role
+        enum:
+        - patient
+        - nurse
+        in: query
+        name: role
+        required: true
+        type: string
+      - description: date from
+        in: query
+        name: from
+        required: true
+        type: string
+      - description: date to
+        in: query
+        name: to
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: data
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad request error
+          schema: {}
+      summary: get appointment (card)
+      tags:
+      - appointments
   /customers/{customer_id}:
     get:
       consumes:
