@@ -48,6 +48,8 @@ func (store *appoinmentStore) RegisterAppoinment(data *appointmentmodel.Register
 		return fmt.Errorf("must have nurse's schedule information to be able to register for an appointment")
 	}
 
+	// todo: kiểm tra lịch làm việc của điều dưỡng -> nếu lịch đó có appointment_id rồi và status hiện tại cũng khác available thì không cho đăng ký
+
 	query_update_nurse_schedule := `
 		update work_schedules set status=?, appointment_id=? 
 		where id in (?)

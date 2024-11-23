@@ -36,9 +36,9 @@ func (sv *server) RunApp() error {
 	config.AllowAllOrigins = true
 	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))
 	router.Use(
+		cors.New(config),
 		gin.LoggerWithWriter(gin.DefaultWriter, "/swagger/*any"),
 		gin.Recovery(),
-		cors.New(config),
 	)
 
 	v1 := router.Group("/api/v1")
