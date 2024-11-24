@@ -207,6 +207,31 @@ paths:
       summary: get appointment detail
       tags:
       - appointments
+  /appointments/{appointment_id}/completed:
+    post:
+      consumes:
+      - application/json
+      description: nurse completed appointment
+      parameters:
+      - description: Appointment ID
+        in: path
+        name: appointment_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: data
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad request error
+          schema: {}
+      summary: nurse completed appointment
+      tags:
+      - appointments
   /appointments/{appointment_id}/confirm:
     post:
       consumes:

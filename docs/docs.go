@@ -153,6 +153,43 @@ const docTemplate = `{
                 }
             }
         },
+        "/appointments/{appointment_id}/completed": {
+            "post": {
+                "description": "nurse completed appointment",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "appointments"
+                ],
+                "summary": "nurse completed appointment",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Appointment ID",
+                        "name": "appointment_id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "data",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request error",
+                        "schema": {}
+                    }
+                }
+            }
+        },
         "/appointments/{appointment_id}/confirm": {
             "post": {
                 "description": "nurse confirm appointment",
