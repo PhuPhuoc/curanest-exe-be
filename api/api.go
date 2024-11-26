@@ -2,6 +2,7 @@ package api
 
 import (
 	"fmt"
+	"strings"
 
 	appointmenthandler "github.com/PhuPhuoc/curanest_exe_be/controller/appointment_services/handler"
 	customerhandler "github.com/PhuPhuoc/curanest_exe_be/controller/customer_services/handler"
@@ -30,20 +31,110 @@ func InitServer(addr string, db *sqlx.DB) *server {
 	}
 }
 
+// func (sv *server) RunApp() error {
+// 	docs.SwaggerInfo.BasePath = "/api/v1"
+// 	router := gin.New()
+// 	config := cors.DefaultConfig()
+// 	config.AllowAllOrigins = true
+// 	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))
+// 	router.Use(
+// 		cors.New(config),
+// 		gin.LoggerWithWriter(gin.DefaultWriter, "/swagger/*any"),
+// 		gin.Recovery(),
+// 	)
+
+// 	v1 := router.Group("/api/v1")
+// 	sv.registerRoutes(v1)
+// 	sv.runLog()
+// 	return router.Run(sv.address)
+// }
+
 func (sv *server) RunApp() error {
 	docs.SwaggerInfo.BasePath = "/api/v1"
 	router := gin.New()
+
+	// Cấu hình CORS chi tiết và linh hoạt
 	config := cors.DefaultConfig()
-	config.AllowAllOrigins = true
+	config.AllowOriginFunc = func(origin string) bool {
+		// Danh sách các origin được phép
+		allowedOrigins := []string{
+			// Web localhost
+			"http://localhost:3000",
+
+			// Domain production frontend
+			"https://curanest.com.vn",
+			"https://www.curanest.com.vn",
+
+			// Flutter mobile development origins
+			"http://localhost",
+			"capacitor://localhost",
+			"ionic://localhost",
+			"http://127.0.0.1",
+
+			// Các domain mobile app (nếu có)
+			// "https://your-mobile-app-domain.com",
+		}
+
+		// Kiểm tra origin
+		for _, allowedOrigin := range allowedOrigins {
+			if origin == allowedOrigin {
+				return true
+			}
+		}
+
+		// Cho phép subdomain của domain chính
+		return strings.Contains(origin, "curanest.com.cn")
+	}
+
+	// Cấu hình headers và methods
+	config.AllowMethods = []string{
+		"GET",
+		"POST",
+		"PUT",
+		"DELETE",
+		"OPTIONS",
+		"PATCH",
+	}
+	config.AllowHeaders = []string{
+		"Origin",
+		"Content-Type",
+		"Content-Length",
+		"Accept-Encoding",
+		"X-CSRF-Token",
+		"Authorization",
+		"accept",
+		"origin",
+		"Cache-Control",
+		"X-Requested-With",
+		"Access-Control-Allow-Origin",
+	}
+	config.AllowCredentials = true
+
 	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))
+	// Sử dụng middleware CORS
 	router.Use(
 		cors.New(config),
 		gin.LoggerWithWriter(gin.DefaultWriter, "/swagger/*any"),
 		gin.Recovery(),
 	)
 
+	// Thêm middleware xử lý OPTIONS request nếu cần
+	router.Use(func(c *gin.Context) {
+		if c.Request.Method == "OPTIONS" {
+			c.Header("Access-Control-Allow-Origin", c.GetHeader("Origin"))
+			c.Header("Access-Control-Allow-Methods", "GET,POST,PUT,PATCH,DELETE,OPTIONS")
+			c.Header("Access-Control-Allow-Headers", "authorization, origin, content-type, accept")
+			c.Header("Access-Control-Allow-Credentials", "true")
+			c.AbortWithStatus(204)
+			return
+		}
+		c.Next()
+	})
+
+	// Đăng ký routes
 	v1 := router.Group("/api/v1")
 	sv.registerRoutes(v1)
+
 	sv.runLog()
 	return router.Run(sv.address)
 }

@@ -14,9 +14,6 @@ import (
 	"github.com/joho/godotenv"
 )
 
-// https://curanest.com.vn/payment-result-success?amount=100000&date=25%2F11%2F2024&infor=Chuyen+khoan
-// https://curanest.com.vn/payment-result-fail?amount=100000&date=25%2F11%2F2024&infor=Chuyen+khoan&response-code=02
-
 func VNPayReturnHandler(db *sqlx.DB) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		err := godotenv.Load()
