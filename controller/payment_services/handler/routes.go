@@ -11,6 +11,7 @@ func RegisterPaymentRoutes(rg *gin.RouterGroup, db *sqlx.DB) {
 		eg.POST("", createPayment(db))
 		eg.GET("/vnpay_ipn", VNPayIPNHandler(db))
 		eg.GET("/vnpay_return", VNPayReturnHandler(db))
+		eg.GET("/vnpay-url", createPaymentVer2(db))
 
 	}
 }

@@ -616,6 +616,36 @@ paths:
       summary: create payment URL
       tags:
       - payments
+  /payments/vnpay-url:
+    get:
+      consumes:
+      - application/json
+      description: create payment URL
+      parameters:
+      - description: amount
+        in: query
+        name: amount
+        required: true
+        type: string
+      - description: nurse_id
+        in: query
+        name: nurse_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: data
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad request error
+          schema: {}
+      summary: create payment URL
+      tags:
+      - payments
   /techniques:
     get:
       consumes:
