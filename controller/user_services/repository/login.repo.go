@@ -9,7 +9,7 @@ import (
 
 func (store *userStore) Login(data *usermodel.LoginForm) (*usermodel.User, error) {
 	user := &usermodel.User{}
-	query := "select id, email, password, name, avatar, role, wallet_amount from users where email = ? and deleted_at is null"
+	query := "select id, email, password, name, avatar, role from users where email = ? and deleted_at is null"
 	err := store.db.Get(user, query, data.Email)
 	if err != nil {
 		if err == sql.ErrNoRows {

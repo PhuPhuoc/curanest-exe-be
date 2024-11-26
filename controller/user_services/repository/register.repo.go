@@ -25,18 +25,19 @@ func (store *userStore) Register(data *usermodel.RegisterForm) error {
 
 	user_id := uuid.New().String()
 	newUser := usermodel.User{
-		ID:        user_id,
-		Email:     data.Email,
-		Password:  data.Password,
-		Name:      data.Name,
-		Avatar:    "https://cdn.dribbble.com/userupload/13007877/file/original-b46e2284f5d9eabaa14986f1f80d1a62.png?resize=752x",
-		Role:      "user",
-		CreatedAt: utils.GetCurrentDateTime(),
+		ID:           user_id,
+		Email:        data.Email,
+		Password:     data.Password,
+		Name:         data.Name,
+		Avatar:       "https://cdn.dribbble.com/userupload/13007877/file/original-b46e2284f5d9eabaa14986f1f80d1a62.png?resize=752x",
+		Role:         "user",
+		WalletAmount: 0,
+		CreatedAt:    utils.GetCurrentDateTime(),
 	}
 
 	query := `
-	insert into users (id, email, password, name, avatar, role, created_at)
-	values (:id, :email, :password, :name, :avatar, :role, :created_at)
+	insert into users (id, email, password, name, avatar, role, wallet_amount, created_at)
+	values (:id, :email, :password, :name, :avatar, :role, :wallet_amount, :created_at)
 	`
 	_, err := store.db.NamedExec(query, newUser)
 	if err != nil {
