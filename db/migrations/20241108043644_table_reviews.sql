@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS `reviews` (
 
 -- +goose Down
 -- +goose StatementBegin
--- ALTER TABLE `reviews` DROP FOREIGN KEY `fk_reviews_appointment`;
+ALTER TABLE `reviews` DROP FOREIGN KEY `fk_reviews_appointment`;
 -- +goose StatementEnd
 -- +goose StatementBegin
 DROP TABLE IF EXISTS `reviews`;
