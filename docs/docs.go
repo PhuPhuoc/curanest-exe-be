@@ -639,6 +639,45 @@ const docTemplate = `{
                 }
             }
         },
+        "/payments": {
+            "post": {
+                "description": "create payment URL",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "payments"
+                ],
+                "summary": "create payment URL",
+                "parameters": [
+                    {
+                        "description": "Payment request body",
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/paymentmodel.CreatePaymentRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "data",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request error",
+                        "schema": {}
+                    }
+                }
+            }
+        },
         "/techniques": {
             "get": {
                 "description": "get techniques",
@@ -1014,6 +1053,21 @@ const docTemplate = `{
                     }
                 },
                 "ward": {
+                    "type": "string"
+                }
+            }
+        },
+        "paymentmodel.CreatePaymentRequest": {
+            "type": "object",
+            "required": [
+                "amount",
+                "user_id"
+            ],
+            "properties": {
+                "amount": {
+                    "type": "integer"
+                },
+                "user_id": {
                     "type": "string"
                 }
             }

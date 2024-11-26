@@ -7,6 +7,7 @@ CREATE TABLE IF NOT EXISTS `users` (
     `name` VARCHAR(255),
     `avatar` VARCHAR(255),
     `role` ENUM('admin', 'user', 'customer', 'nurse'),
+    `wallet_amount` DECIMAL(15,2) NOT NULL,
     `created_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
     `deleted_at` DATETIME,
     UNIQUE(`email`)

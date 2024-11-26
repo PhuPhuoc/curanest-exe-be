@@ -124,6 +124,16 @@ definitions:
       ward:
         type: string
     type: object
+  paymentmodel.CreatePaymentRequest:
+    properties:
+      amount:
+        type: integer
+      user_id:
+        type: string
+    required:
+    - amount
+    - user_id
+    type: object
   techniquemodel.TechniqueCreationModel:
     properties:
       estimated_time:
@@ -580,6 +590,32 @@ paths:
       summary: register for nurse's work schedule
       tags:
       - nurses
+  /payments:
+    post:
+      consumes:
+      - application/json
+      description: create payment URL
+      parameters:
+      - description: Payment request body
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/paymentmodel.CreatePaymentRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: data
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad request error
+          schema: {}
+      summary: create payment URL
+      tags:
+      - payments
   /techniques:
     get:
       consumes:
