@@ -28,8 +28,8 @@ func createPayment(db *sqlx.DB) gin.HandlerFunc {
 		err := godotenv.Load()
 		if err != nil {
 			log.Println("(dev) Error loading .env file")
-			utils.SendError(c, http.StatusBadRequest, "Error loading .env file", err.Error())
-			return
+			// utils.SendError(c, http.StatusBadRequest, "Error loading .env file", err.Error())
+			// return
 		}
 		vnp_config := &paymentmodel.VnpayConfig{
 			TMNCode:   os.Getenv("VNPAY_TMN_CODE"),

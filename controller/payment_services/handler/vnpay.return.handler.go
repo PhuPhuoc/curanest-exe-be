@@ -5,12 +5,14 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"strconv"
 
 	paymentrepository "github.com/PhuPhuoc/curanest_exe_be/controller/payment_services/repository"
 	"github.com/PhuPhuoc/curanest_exe_be/utils"
 	"github.com/gin-gonic/gin"
 	"github.com/jmoiron/sqlx"
 	"github.com/joho/godotenv"
+
 )
 
 // https://curanest.com.vn/payment-result-success?amount=100000&date=25%2F11%2F2024&infor=Chuyen+khoan
@@ -52,15 +54,18 @@ func VNPayReturnHandler(db *sqlx.DB) gin.HandlerFunc {
 		transactionNo := vnpParams.Get("vnp_TransactionNo")
 		amount := vnpParams.Get("vnp_Amount")
 
+		var floatAmount float64
+		floatAmount, _ = strconv.ParseFloat(amount, 64)
+		floatAmount = floatAmount / 100
 		// Gọi repository để xác minh SecureHash
 		repo := paymentrepository.NewPaymentStore(db)
 		valid, err := repo.VerifyVNPayResponse(vnpParams, secureHash, secretKey)
 		if err != nil {
 			// c.JSON(http.StatusBadRequest, gin.H{"code": "97", "message": "Verification error: " + err.Error()})
 			redirectURL := fmt.Sprintf(
-				"%s?amount=%s&date=%s&infor=%s&response-code=%s",
+				"%s?amount=%f&date=%s&infor=%s&response-code=%s",
 				client_url_fail,
-				amount,
+				floatAmount,
 				payment_content+" - xác thực không thành công",
 				payment_date,
 				rspCode,
@@ -73,9 +78,9 @@ func VNPayReturnHandler(db *sqlx.DB) gin.HandlerFunc {
 		if !valid {
 			// c.JSON(http.StatusOK, gin.H{"code": "97", "message": "Invalid checksum"})
 			redirectURL := fmt.Sprintf(
-				"%s?amount=%s&date=%s&infor=%s&response-code=%s",
+				"%s?amount=%f&date=%s&infor=%s&response-code=%s",
 				client_url_fail,
-				amount,
+				floatAmount,
 				payment_content+" - kiểm tra không hợp lệ",
 				payment_date,
 				rspCode,
@@ -83,14 +88,14 @@ func VNPayReturnHandler(db *sqlx.DB) gin.HandlerFunc {
 			c.Redirect(http.StatusFound, redirectURL)
 			return
 		}
-
+ 
 		err = repo.HandlePaymentResult(orderID, transactionNo, rspCode, amount)
 		if err != nil {
 			// c.JSON(http.StatusBadRequest, gin.H{"code": "97", "message": "Order processing failed"})
 			redirectURL := fmt.Sprintf(
-				"%s?amount=%s&date=%s&infor=%s&response-code=%s",
+				"%s?amount=%f&date=%s&infor=%s&response-code=%s",
 				client_url_fail,
-				amount,
+				floatAmount,
 				payment_content,
 				payment_date,
 				rspCode,
@@ -100,9 +105,9 @@ func VNPayReturnHandler(db *sqlx.DB) gin.HandlerFunc {
 		}
 
 		redirectURL := fmt.Sprintf(
-			"%s?amount=%s&date=%s&infor=%s",
+			"%s?amount=%f&date=%s&infor=%s",
 			client_url_success,
-			amount,
+			floatAmount,
 			payment_content,
 			payment_date,
 		)
