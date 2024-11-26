@@ -7,13 +7,14 @@ type NurseCreationModel struct {
 }
 
 type NurseAccount struct {
-	ID        string `db:"id" json:"-"`
-	Email     string `db:"email" json:"email"`
-	Password  string `db:"password" json:"password"`
-	Name      string `db:"name" json:"name"`
-	Avatar    string `db:"avatar" json:"avatar"`
-	Role      string `db:"role" json:"-"`
-	CreatedAt string `db:"created_at" json:"-"`
+	ID           string  `db:"id" json:"-"`
+	Email        string  `db:"email" json:"email"`
+	Password     string  `db:"password" json:"password"`
+	Name         string  `db:"name" json:"name"`
+	Avatar       string  `db:"avatar" json:"avatar"`
+	Role         string  `db:"role" json:"-"`
+	WalletAmount float64 `db:"wallet_amount" json:"-"`
+	CreatedAt    string  `db:"created_at" json:"-"`
 }
 
 type NurseData struct {

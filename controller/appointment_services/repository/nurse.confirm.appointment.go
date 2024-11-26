@@ -57,16 +57,30 @@ func (store *appoinmentStore) ConfirmAppointment(appointment_id, status string) 
 			return fmt.Errorf("cannot get total_fee of appointment <%w>", err)
 		}
 		// todo 2: lấy ra 20% tổng chi phí của appointment trừ vào ví của điều dưỡng
-		var commission_cost float64
-		commission_cost = float64(appointment_fee) * 25 / 100
+		commission_cost := float64(appointment_fee) * 25 / 100
 		fmt.Println("comis cost: ", commission_cost)
 
 		// todo 2.1: thêm record vào wallet_transactions
-		// todo 2.1.1: lấy ra id của điều dưỡng
+		// todo 2.1.1: lấy ra id của điều dưỡng và lấy ra số tiền hiện tại của điều dưỡng đó trong ví
+		var nurse_id string
+		query_get_nurse_id := `select nurse_id from appointments where id=?`
+		if err := tx.Get(&nurse_id, query_get_nurse_id, appointment_id); err != nil {
+			return fmt.Errorf("cannot get total_fee of appointment <%w>", err)
+		}
 
-		// todo 2.2: trừ tiền vào ví điều dưỡng
+		var current_money float64
+		query_get_nurse_money := `select wallet_amount from users where id=?`
+		if err := tx.Get(&current_money, query_get_nurse_money, nurse_id); err != nil {
+			return fmt.Errorf("cannot get current amount in nurse wallet <%w>", err)
+		}
 
-		// todo 2.3: nếu chi phí cần phải trừ không đủ thì không cho điều dưỡng confirm lịch hẹn này
+		if current_money <= commission_cost {
+			return fmt.Errorf("nurse cannot take this appointment because there is not enough money in the wallet")
+		}
+
+		// todo 2.1.2: trừ tiền vào tài khoản của điều dưỡng
+
+		// todo 2.1.3: lưu giao dịch vào wallet_transaction
 
 	} else if status == "cancel" {
 		query_cancel_appoinment := `

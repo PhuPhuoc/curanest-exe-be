@@ -36,12 +36,13 @@ func (store *nurseStore) CreateNurse(data *nursemodel.NurseCreationModel) (err e
 	data.ID = user_id
 	data.Role = "nurse"
 	data.CreatedAt = utils.GetCurrentDateTime()
+	data.WalletAmount = 0
 
 	query_user := `
 	insert into users
-		(id, email, password, name, avatar, role, created_at)
+		(id, email, password, name, avatar, role, wallet_amount, created_at)
 	values
-		(:id, :email, :password, :name, :avatar, :role, :created_at)
+		(:id, :email, :password, :name, :avatar, :role, :wallet_amount, :created_at)
 	`
 	_, err = tx.NamedExec(query_user, data.NurseAccount)
 	if err != nil {
