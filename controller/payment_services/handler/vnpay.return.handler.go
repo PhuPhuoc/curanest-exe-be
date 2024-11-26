@@ -12,7 +12,6 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/jmoiron/sqlx"
 	"github.com/joho/godotenv"
-
 )
 
 // https://curanest.com.vn/payment-result-success?amount=100000&date=25%2F11%2F2024&infor=Chuyen+khoan
@@ -23,16 +22,16 @@ func VNPayReturnHandler(db *sqlx.DB) gin.HandlerFunc {
 		err := godotenv.Load()
 		if err != nil {
 			log.Println("(dev) Error loading .env file")
-			redirectURL := fmt.Sprintf(
-				"%s?amount=%s&date=%s&infor=%s&response-code=%s",
-				"https://curanest.com.vn/payment-result-fail?",
-				"0",
-				"Hệ thống thanh toán hiện đang bảo trì - Vui lòng thử lại sau",
-				"---",
-				"---",
-			)
-			c.Redirect(http.StatusFound, redirectURL)
-			return
+			// redirectURL := fmt.Sprintf(
+			// 	"%s?amount=%s&date=%s&infor=%s&response-code=%s",
+			// 	"https://curanest.com.vn/payment-result-fail?",
+			// 	"0",
+			// 	"Hệ thống thanh toán hiện đang bảo trì - Vui lòng thử lại sau",
+			// 	"---",
+			// 	"---",
+			// )
+			// c.Redirect(http.StatusFound, redirectURL)
+			// return
 		}
 		secretKey := os.Getenv("VNPAY_SECRET_KEY")
 		client_url_success := os.Getenv("CLIENT_URL_PAYMENT_SUCCESS")
@@ -88,7 +87,7 @@ func VNPayReturnHandler(db *sqlx.DB) gin.HandlerFunc {
 			c.Redirect(http.StatusFound, redirectURL)
 			return
 		}
- 
+
 		err = repo.HandlePaymentResult(orderID, transactionNo, rspCode, amount)
 		if err != nil {
 			// c.JSON(http.StatusBadRequest, gin.H{"code": "97", "message": "Order processing failed"})
