@@ -3,6 +3,9 @@ package appointmentrepository
 import (
 	"fmt"
 
+	appointmentmodel "github.com/PhuPhuoc/curanest_exe_be/controller/appointment_services/model"
+	"github.com/PhuPhuoc/curanest_exe_be/utils"
+	"github.com/google/uuid"
 	"github.com/jmoiron/sqlx"
 )
 
@@ -78,9 +81,39 @@ func (store *appoinmentStore) ConfirmAppointment(appointment_id, status string) 
 			return fmt.Errorf("nurse cannot take this appointment because there is not enough money in the wallet")
 		}
 
-		// todo 2.1.2: trừ tiền vào tài khoản của điều dưỡng
+		// todo 2.1.2: trừ tiền vào tài khoản của điều dưỡn
+		query_update_wallet_amount := `
+		update users
+		set
+			wallet_amount = wallet_amount - ?
+		where 
+			id=?
+	`
+		if _, err = tx.Exec(query_update_wallet_amount, commission_cost, nurse_id); err != nil {
+			return fmt.Errorf("cannot update amount in nurse wallet <%w>", err)
+		}
 
 		// todo 2.1.3: lưu giao dịch vào wallet_transaction
+		wallet_tran := &appointmentmodel.WalletTransactionModel{
+			ID:            uuid.New().String(),
+			UserID:        nurse_id,
+			Amount:        commission_cost,
+			Type:          "deduction",
+			AppointmentID: appointment_id,
+			Detail:        "Phí dịch vụ hoa hồng",
+			CreatedAt:     utils.GetCurrentDateTime(),
+		}
+
+		query_insert_wallet_transaction := `
+			insert into wallet_transactions (
+				id, user_id, amount, type, appointment_id, detail, created_at
+			) values (
+				:id, :user_id, :amount, :type, :appointment_id, :detail, :created_at
+			)
+		`
+		if _, err = tx.NamedExec(query_insert_wallet_transaction, wallet_tran); err != nil {
+			return fmt.Errorf("cannot create wallet transaction record <%w>", err)
+		}
 
 	} else if status == "cancel" {
 		query_cancel_appoinment := `
