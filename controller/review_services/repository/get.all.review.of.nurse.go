@@ -13,6 +13,7 @@ func (store *reviewStore) GetAllReviewOrNurse(nurse_id string) ([]reviewmodel.Re
 		from reviews r
 		left join appointments a on a.id = r.appointment_id
 		where a.nurse_id=?
+		order by r.created_at desc
 	`
 	if err := store.db.Select(&list_review, query_get, nurse_id); err != nil {
 		return nil, fmt.Errorf("cannot get list review of nurse <%w>", err)
