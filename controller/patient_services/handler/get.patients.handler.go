@@ -9,16 +9,16 @@ import (
 	"github.com/jmoiron/sqlx"
 )
 
-//	@BasePath		/api/v1
-//	@Summary		get list patients of customer
-//	@Description	get list patients of customer
-//	@Tags			patients
-//	@Accept			json
-//	@Produce		json
-//	@Param			customer_id	path		string					true	"Customer ID"
-//	@Success		200			{object}	map[string]interface{}	"message success"
-//	@Failure		400			{object}	error					"Bad request error"
-//	@Router			/customers/{customer_id}/patients [get]
+// @BasePath		/api/v1
+// @Summary		get list patients of customer
+// @Description	get list patients of customer
+// @Tags			patients
+// @Accept			json
+// @Produce		json
+// @Param			customer_id	path		string					true	"Customer ID"
+// @Success		200			{object}	map[string]interface{}	"message success"
+// @Failure		400			{object}	error					"Bad request error"
+// @Router			/customers/{customer_id}/patients [get]
 func getPatientsHandler(db *sqlx.DB) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		customer_id := c.Param("customer_id")

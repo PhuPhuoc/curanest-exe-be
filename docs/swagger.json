@@ -107,6 +107,43 @@
                 }
             }
         },
+        "/appointments/nurse/{nurse_id}/reviews": {
+            "get": {
+                "description": "get all review",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "reviews"
+                ],
+                "summary": "get all review",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "nurse id",
+                        "name": "nurse_id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "message success",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request error",
+                        "schema": {}
+                    }
+                }
+            }
+        },
         "/appointments/{appointment_id}": {
             "get": {
                 "description": "get appointment detail",
@@ -217,6 +254,52 @@
                 "responses": {
                     "200": {
                         "description": "data",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request error",
+                        "schema": {}
+                    }
+                }
+            }
+        },
+        "/appointments/{appointment_id}/reviews": {
+            "post": {
+                "description": "create new review",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "reviews"
+                ],
+                "summary": "create new review",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "appointment id",
+                        "name": "appointment_id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "create new review in appointment",
+                        "name": "create_review",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/reviewmodel.CreateNewReviewModel"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "message success",
                         "schema": {
                             "type": "object",
                             "additionalProperties": true
@@ -1103,6 +1186,29 @@
                     "type": "integer"
                 },
                 "user_id": {
+                    "type": "string"
+                }
+            }
+        },
+        "reviewmodel.CreateNewReviewModel": {
+            "type": "object",
+            "required": [
+                "patient_name",
+                "rate"
+            ],
+            "properties": {
+                "content": {
+                    "type": "string"
+                },
+                "patient_name": {
+                    "type": "string"
+                },
+                "rate": {
+                    "type": "integer",
+                    "maximum": 5,
+                    "minimum": 1
+                },
+                "techniques": {
                     "type": "string"
                 }
             }

@@ -134,6 +134,22 @@ definitions:
     - amount
     - user_id
     type: object
+  reviewmodel.CreateNewReviewModel:
+    properties:
+      content:
+        type: string
+      patient_name:
+        type: string
+      rate:
+        maximum: 5
+        minimum: 1
+        type: integer
+      techniques:
+        type: string
+    required:
+    - patient_name
+    - rate
+    type: object
   techniquemodel.TechniqueCreationModel:
     properties:
       estimated_time:
@@ -275,6 +291,37 @@ paths:
       summary: nurse confirm appointment
       tags:
       - appointments
+  /appointments/{appointment_id}/reviews:
+    post:
+      consumes:
+      - application/json
+      description: create new review
+      parameters:
+      - description: appointment id
+        in: path
+        name: appointment_id
+        required: true
+        type: string
+      - description: create new review in appointment
+        in: body
+        name: create_review
+        required: true
+        schema:
+          $ref: '#/definitions/reviewmodel.CreateNewReviewModel'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: message success
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad request error
+          schema: {}
+      summary: create new review
+      tags:
+      - reviews
   /appointments/card/{account_id}:
     get:
       consumes:
@@ -318,6 +365,31 @@ paths:
       summary: get appointment (card)
       tags:
       - appointments
+  /appointments/nurse/{nurse_id}/reviews:
+    get:
+      consumes:
+      - application/json
+      description: get all review
+      parameters:
+      - description: nurse id
+        in: path
+        name: nurse_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: message success
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad request error
+          schema: {}
+      summary: get all review
+      tags:
+      - reviews
   /customers/{customer_id}:
     get:
       consumes:

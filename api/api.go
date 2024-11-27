@@ -9,6 +9,7 @@ import (
 	nursehandler "github.com/PhuPhuoc/curanest_exe_be/controller/nurse_services/handler"
 	patienthandler "github.com/PhuPhuoc/curanest_exe_be/controller/patient_services/handler"
 	paymenthandler "github.com/PhuPhuoc/curanest_exe_be/controller/payment_services/handler"
+	reviewhandler "github.com/PhuPhuoc/curanest_exe_be/controller/review_services/handler"
 	techniquehandler "github.com/PhuPhuoc/curanest_exe_be/controller/technique_services/handler"
 	userhandler "github.com/PhuPhuoc/curanest_exe_be/controller/user_services/handler"
 	docs "github.com/PhuPhuoc/curanest_exe_be/docs"
@@ -151,4 +152,5 @@ func (sv *server) registerRoutes(v1 *gin.RouterGroup) {
 	patienthandler.RegisterPatientRoutes(v1, sv.db)
 	appointmenthandler.RegisterNurseRoutes(v1, sv.db)
 	paymenthandler.RegisterPaymentRoutes(v1, sv.db)
+	reviewhandler.RegisterReviewRoutes(v1, sv.db)
 }
