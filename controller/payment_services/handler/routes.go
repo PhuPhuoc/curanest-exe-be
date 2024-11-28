@@ -15,5 +15,7 @@ func RegisterPaymentRoutes(rg *gin.RouterGroup, db *sqlx.DB) {
 		eg.GET("/current-wallet-amount/:user_id", getWalletAmount(db))
 		eg.GET(":user_id/deposit-transactions", getAllDepositTransaction(db))
 		eg.GET(":user_id/wallet-transactions", getAllWalletTransaction(db))
+		eg.GET("admin/deposit-transactions", adminGetAllDepositTransaction(db))
+		eg.GET("admin/wallet-transactions", adminGetAllWalletTransaction(db))
 	}
 }

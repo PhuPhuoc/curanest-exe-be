@@ -738,6 +738,44 @@ paths:
       summary: get all wallet transaction
       tags:
       - payments
+  /payments/admin/deposit-transactions:
+    get:
+      consumes:
+      - application/json
+      description: get all deposit transaction
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: message success
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad request error
+          schema: {}
+      summary: get all deposit transaction
+      tags:
+      - payments
+  /payments/admin/wallet-transactions:
+    get:
+      consumes:
+      - application/json
+      description: get all wallet transaction
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: message success
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad request error
+          schema: {}
+      summary: get all wallet transaction
+      tags:
+      - payments
   /payments/current-wallet-amount/{user_id}:
     get:
       consumes:
