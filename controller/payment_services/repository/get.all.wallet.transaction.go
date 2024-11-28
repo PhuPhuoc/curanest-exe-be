@@ -10,14 +10,14 @@ func (store *paymentStore) GetAllWalletTransactionOfNurse(user_id ...string) ([]
 	payments := []paymentmodel.WalletTransactionModel{}
 
 	var query string
-	if user_id != nil {
+	if len(user_id) > 0 {
 		query = `
 		select id, user_id, amount, type, related_transaction_id, appointment_id, detail, created_at
 		from wallet_transactions
 		where user_id=?
 		order by created_at desc
 	`
-		if err := store.db.Select(&payments, query, user_id); err != nil {
+		if err := store.db.Select(&payments, query, user_id[0]); err != nil {
 			return nil, fmt.Errorf("cannot get transactions <%w>", err)
 		}
 	} else {
